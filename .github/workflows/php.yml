@@ -35,10 +35,21 @@ jobs:
 
     # - name: Run test suite
     #   run: composer run-script test
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v2.7.5
+    - name: Test & get code coverage
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+        phpdbg -qrr vendor/bin/phpunit -v
+
+    - name: Publish code coverage
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-      with:
-        coverageCommand: composer run-script test-coverage
-        debug: true
+      if: success()
+      run: ./cc-test-reporter after-build --exit-code 0
+
+    - name: Publish code coverage
+      env:
+        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      if: failure()
+      run: ./cc-test-reporter after-build --exit-code 1
