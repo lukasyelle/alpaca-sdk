@@ -33,10 +33,15 @@
             "Lukasyelle\\AlpacaSdk\\Tests\\": "tests"
         }
     },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests",
+        "test-coverage": "vendor/bin/phpunit tests --coverage-html coverage"
+    },
     "extra": {
         "laravel": {
-            "providers": [],
-            "aliases": {}
+            "providers": [
+                "Lukasyelle\\AlpacaSdk\\AlpacaSdkServiceProvider"
+            ]
         }
     }
 }
