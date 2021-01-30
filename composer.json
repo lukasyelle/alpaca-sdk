@@ -35,7 +35,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit tests",
-        "test-coverage": "phpdbg -qrr vendor/bin/phpunit tests -v"
+        "test-coverage": "phpdbg -qrr vendor/bin/phpunit -v tests"
     },
     "extra": {
         "laravel": {
