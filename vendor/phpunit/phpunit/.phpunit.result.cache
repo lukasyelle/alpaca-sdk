@@ -1,1 +1,0 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":299:{a:2:{s:7:"defects";a:1:{s:65:"Lukasyelle\AlpacaSdk\Tests\Account\GetAccountTest::testGetAccount";i:4;}s:5:"times";a:2:{s:65:"Lukasyelle\AlpacaSdk\Tests\Account\GetAccountTest::testGetAccount";d:0.059;s:81:"Lukasyelle\AlpacaSdk\Tests\Account\GetAccountTest::it_can_get_account_information";d:0.057;}}}
