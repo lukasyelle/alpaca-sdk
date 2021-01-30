@@ -30,11 +30,12 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Setup PHP with XDebug extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        extensions: xdebug
 
-    # - name: Run test suite
-    #   run: composer run-script test
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v2.7.5
       env:

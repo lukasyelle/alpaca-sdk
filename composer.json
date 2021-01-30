@@ -35,7 +35,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit tests",
-        "test-coverage": "phpdbg -qrr vendor/bin/phpunit -v tests"
+        "test-coverage": "vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover tests"
     },
     "extra": {
         "laravel": {
