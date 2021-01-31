@@ -7,7 +7,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Application;
 use Lukasyelle\AlpacaSdk\AlpacaSdkServiceProvider;
-use Lukasyelle\AlpacaSdk\Client;
+use Lukasyelle\AlpacaSdk\Clients\BaseClient;
+use Lukasyelle\AlpacaSdk\Clients\MarketDataClient;
+use Lukasyelle\AlpacaSdk\Clients\TradingClient;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaMarketData;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
@@ -19,7 +21,7 @@ abstract class BaseTestCase extends TestCase
 {
     protected int $mockResponseCode = 200;
     protected string $mockResponse = '';
-    protected Client $mockClient;
+    protected BaseClient $mockClient;
     protected MockHandler $handler;
     protected string $alpacaApi = '';
 
@@ -87,12 +89,19 @@ abstract class BaseTestCase extends TestCase
         };
     }
 
+    protected function createClient($baseUrl, $keyId, $secretKey, $handlerStack): BaseClient {
+        return match($this->getAlpacaApiType()) {
+            AlpacaTrading::class => new TradingClient($baseUrl, $keyId, $secretKey, $handlerStack),
+            AlpacaMarketData::class => new MarketDataClient($baseUrl, $keyId, $secretKey, $handlerStack),
+        };
+    }
+
     protected function mockResponse(): Response
     {
         return new Response($this->mockResponseCode, [], $this->mockResponse);
     }
 
-    protected function getMockClient(): Client
+    protected function getMockClient(): BaseClient
     {
         $handler = new MockHandler([
             $this->mockResponse()
@@ -101,20 +110,9 @@ abstract class BaseTestCase extends TestCase
         $this->handler = $handler;
         $handlerStack = HandlerStack::create($handler);
 
-        $baseUri = $this->getBaseUri();
         $config = $this->app['config'];
+        $baseUri = $this->getBaseUri();
 
-        $guzzle = new \GuzzleHttp\Client([
-            'handler' => $handlerStack,
-            'base_uri' => $baseUri,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'APCA-API-KEY-ID' => $config['alpaca-sdk.key_id'],
-                'APCA-API-SECRET-KEY' => $config['alpaca-sdk.secret_key'],
-            ],
-        ]);
-
-        return new Client($guzzle);
+        return $this->createClient($baseUri, $config['alpaca-sdk.key_id'], $config['alpaca-sdk.secret_key'], $handlerStack);
     }
 }
