@@ -89,14 +89,15 @@ abstract class BaseTestCase extends TestCase
 
         return match ($this->getAlpacaApiType()) {
             // Determine which API to use.
-            AlpacaTrading::class => $config['alpaca-sdk.live_trading'] ? $config['alpaca-sdk.live_base_url'] : $config['alpaca-sdk.paper_base_url'],
+            AlpacaTrading::class    => $config['alpaca-sdk.live_trading'] ? $config['alpaca-sdk.live_base_url'] : $config['alpaca-sdk.paper_base_url'],
             AlpacaMarketData::class => $config['alpaca-sdk.data_base_url'],
         };
     }
 
-    protected function createClient($baseUrl, $keyId, $secretKey, $handlerStack): AlpacaMarketData|AlpacaTrading {
+    protected function createClient($baseUrl, $keyId, $secretKey, $handlerStack): AlpacaMarketData | AlpacaTrading
+    {
         return match($this->getAlpacaApiType()) {
-            AlpacaTrading::class => new TradingClient($baseUrl, $keyId, $secretKey, $handlerStack),
+            AlpacaTrading::class    => new TradingClient($baseUrl, $keyId, $secretKey, $handlerStack),
             AlpacaMarketData::class => new MarketDataClient($baseUrl, $keyId, $secretKey, $handlerStack),
         };
     }
@@ -111,10 +112,10 @@ abstract class BaseTestCase extends TestCase
         return new Collection(json_decode($this->mockResponse));
     }
 
-    protected function getMockClient(): AlpacaTrading|AlpacaMarketData
+    protected function getMockClient(): AlpacaTrading | AlpacaMarketData
     {
         $handler = new MockHandler([
-            $this->mockResponse()
+            $this->mockResponse(),
         ]);
 
         $this->handler = $handler;
