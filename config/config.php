@@ -22,7 +22,7 @@ return [
     | Specify which API to consume for Live Trading.
     |
     */
-    'live_base_url' => env('ALPACA_LIVE_BASE_URL', 'https://api.alpaca.markets/v2'),
+    'live_base_url' => env('ALPACA_LIVE_BASE_URL', 'https://api.alpaca.markets'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     | Specify which API to consume for Paper Trading.
     |
     */
-    'paper_base_url' => env('ALPACA_PAPER_BASE_URL', 'https://paper-api.alpaca.markets/v2'),
+    'paper_base_url' => env('ALPACA_PAPER_BASE_URL', 'https://paper-api.alpaca.markets'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     | Specify which API to consume for getting market data.
     |
     */
-    'data_base_url' => env('ALPACA_DATA_BASE_URL', 'https://data.alpaca.markets/v1'),
+    'data_base_url' => env('ALPACA_DATA_BASE_URL', 'https://data.alpaca.markets'),
 
     /*
     |--------------------------------------------------------------------------

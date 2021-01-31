@@ -5,11 +5,10 @@ namespace Lukasyelle\AlpacaSdk\Requests;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Collection;
-use function PHPUnit\Framework\throwException;
 
 abstract class BaseRequest
 {
-    const ENDPOINT = '';
+    public string $endpoint = '';
 
     protected string $method = 'GET';
 
@@ -66,9 +65,9 @@ abstract class BaseRequest
     /**
      * @return string
      */
-    protected function getFullEndpoint(): string
+    public function getFullEndpoint(): string
     {
-        return self::ENDPOINT;
+        return $this->endpoint;
     }
 
     /**

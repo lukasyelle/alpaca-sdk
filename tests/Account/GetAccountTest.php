@@ -4,6 +4,7 @@ namespace Lukasyelle\AlpacaSdk\Tests\Account;
 
 use Illuminate\Support\Collection;
 use Lukasyelle\AlpacaSdk\Account\Account;
+use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
 class GetAccountTest extends BaseTestCase
@@ -37,15 +38,22 @@ class GetAccountTest extends BaseTestCase
         "transfers_blocked": false
     }';
 
+    function getAlpacaApiType(): string
+    {
+        return AlpacaTrading::class;
+    }
+
     /**
      * @test
      */
     function it_can_get_account_information()
     {
-        $api = new Account($this->getMockClient());
+        $api = new Account($this->mockClient);
 
         $response = $api->get();
 
+        $this->assertSame('paper-api.alpaca.markets', $this->getLastRequestUri()->getHost());
+        $this->assertSame('/v2/account', $this->getLastRequestUri()->getPath());
         $this->assertInstanceOf(Collection::class, $response);
         $this->assertSame('ACTIVE', $response['status']);
     }

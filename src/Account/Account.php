@@ -6,5 +6,5 @@ use Lukasyelle\AlpacaSdk\Requests\Trading;
 
 class Account extends Trading
 {
-
+    public string $endpoint = '/v2/account';
 }

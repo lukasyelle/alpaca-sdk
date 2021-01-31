@@ -15,4 +15,9 @@ class InvalidConfig extends Exception
     {
         return new static("You must provide a valid Base URL for the $api API");
     }
+
+    public static function improperTestingConfig($message)
+    {
+        return new static($message);
+    }
 }

@@ -64,7 +64,7 @@ class AlpacaSdkServiceProvider extends ServiceProvider
     /**
      * @param  array|null  $config
      */
-    protected function guardAgainstInvalidConfig(array $config = null)
+    protected function guardAgainstInvalidConfig(array $config = null): void
     {
         if (empty($config['data_base_url'])) {
             throw InvalidConfig::baseUrlNotSpecified('Data');
