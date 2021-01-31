@@ -1,5 +1,5 @@
 # Alpaca SDK
-
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/lukasyelle/alpaca-sdk.svg?style=flat-square)](https://packagist.org/packages/lukasyelle/alpaca-sdk)
 [![StyleCI](https://github.styleci.io/repos/334502230/shield)](https://github.styleci.io/repos/334502230)
 [![Maintainability](https://api.codeclimate.com/v1/badges/804cf06abfd093cf51f1/maintainability)](https://codeclimate.com/github/lukasyelle/alpaca-sdk/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/804cf06abfd093cf51f1/test_coverage)](https://codeclimate.com/github/lukasyelle/alpaca-sdk/test_coverage)
