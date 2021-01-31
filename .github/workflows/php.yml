@@ -42,6 +42,4 @@ jobs:
         CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
       with:
         coverageCommand: composer run-script test-coverage
-        coverageLocations: |
-          ${{github.workspace}}/build/logs/clover.xml
         debug: true
