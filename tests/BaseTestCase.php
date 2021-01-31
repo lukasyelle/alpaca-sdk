@@ -6,6 +6,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
 use Lukasyelle\AlpacaSdk\AlpacaSdkServiceProvider;
 use Lukasyelle\AlpacaSdk\Clients\MarketDataClient;
 use Lukasyelle\AlpacaSdk\Clients\TradingClient;
@@ -20,9 +21,13 @@ use Psr\Http\Message\UriInterface;
 abstract class BaseTestCase extends TestCase
 {
     protected int $mockResponseCode = 200;
+
     protected string $mockResponse = '';
+
     protected Alpaca $mockClient;
+
     protected MockHandler $handler;
+
     protected string $alpacaApi = '';
 
     /**
@@ -99,6 +104,11 @@ abstract class BaseTestCase extends TestCase
     protected function mockResponse(): Response
     {
         return new Response($this->mockResponseCode, [], $this->mockResponse);
+    }
+
+    protected function expectedResult(): Collection
+    {
+        return new Collection(json_decode($this->mockResponse));
     }
 
     protected function getMockClient(): AlpacaTrading|AlpacaMarketData

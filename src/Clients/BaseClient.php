@@ -49,7 +49,7 @@ class BaseClient implements Alpaca
     public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
         try {
-            return $this->client->send($request);
+            return $this->client->send($request, $options);
         }
         catch (ClientException $e) {
             throw InvalidData::badData($e->getMessage());

@@ -2,6 +2,8 @@
 
 namespace Lukasyelle\AlpacaSdk\Requests;
 
+use GuzzleHttp\Psr7\Uri;
+use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Collection;
@@ -12,11 +14,15 @@ abstract class BaseRequest
 
     protected string $method = 'GET';
 
-    protected array $payload = [];
+    public array $bodyParams = [];
 
-    protected array $requiredParams = [];
+    public array $queryParams = [];
 
-    protected $api;
+    protected array $requiredBodyParams = [];
+
+    protected array $requiredQueryParams = [];
+
+    protected Alpaca $api;
 
     public function __construct($api)
     {
@@ -28,11 +34,12 @@ abstract class BaseRequest
      */
     protected function send(): Collection
     {
-        $this->validateParams();
+        $this->validateParams('queryParams');
+        $this->validateParams('bodyParams');
 
-        $request = new Request($this->method, $this->getFullEndpoint(), [], json_encode($this->payload));
+        $request = new Request($this->method, $this->getFullEndpoint(), [], json_encode($this->bodyParams));
 
-        $response = $this->api->send($request);
+        $response = $this->api->send($request, ['query' => $this->queryParams]);
 
         return collect(json_decode($response->getBody()->getContents()));
     }
@@ -48,8 +55,8 @@ abstract class BaseRequest
     }
 
     /**
-     * @throws InvalidData
      * @return Collection
+     * @throws InvalidData
      */
     public function post(): Collection
     {
@@ -71,13 +78,16 @@ abstract class BaseRequest
     }
 
     /**
+     * @param string $params
+     *
      * @return void
      * @throws InvalidData
      */
-    protected function validateParams(): void
+    protected function validateParams(string $params): void
     {
-        if ($this->requiredParams) {
-            $missingParams = array_diff($this->requiredParams, array_keys($this->payload));
+        $requiredString = 'required' . ucfirst($params);
+        if ($this->$requiredString) {
+            $missingParams = array_diff($this->requiredBodyParams, array_keys($this->$params));
             if ($missingParams) {
                 throw InvalidData::missingParams($missingParams);
             }

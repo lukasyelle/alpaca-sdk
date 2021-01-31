@@ -5,6 +5,7 @@ namespace Lukasyelle\AlpacaSdk\Tests\Account;
 use Illuminate\Support\Collection;
 use Lukasyelle\AlpacaSdk\Account\Account;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
+use Lukasyelle\AlpacaSdk\Requests\BaseRequest;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
 class GetAccountTest extends BaseTestCase
@@ -41,11 +42,6 @@ class GetAccountTest extends BaseTestCase
     public function getAlpacaApiType(): string
     {
         return AlpacaTrading::class;
-    }
-
-    private function expectedResult(): Collection
-    {
-        return new Collection(json_decode($this->mockResponse));
     }
 
     /**
