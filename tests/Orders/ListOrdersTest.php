@@ -246,4 +246,14 @@ class ListOrdersTest extends BaseTestCase
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('symbols=AAPL%2CAMD%2CGME', $lastUri->getQuery());
     }
+
+    /**
+     * @test
+     */
+    public function itCanListOrdersThroughFacade()
+    {
+        \Lukasyelle\AlpacaSdk\Facades\Orders\ListOrders::shouldReceive('get')->once()->andReturn($this->expectedResult());
+
+        \Lukasyelle\AlpacaSdk\Facades\Orders\ListOrders::get();
+    }
 }
