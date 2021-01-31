@@ -7,9 +7,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Application;
 use Lukasyelle\AlpacaSdk\AlpacaSdkServiceProvider;
-use Lukasyelle\AlpacaSdk\Clients\BaseClient;
 use Lukasyelle\AlpacaSdk\Clients\MarketDataClient;
 use Lukasyelle\AlpacaSdk\Clients\TradingClient;
+use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaMarketData;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
@@ -21,7 +21,7 @@ abstract class BaseTestCase extends TestCase
 {
     protected int $mockResponseCode = 200;
     protected string $mockResponse = '';
-    protected BaseClient $mockClient;
+    protected Alpaca $mockClient;
     protected MockHandler $handler;
     protected string $alpacaApi = '';
 
@@ -89,7 +89,7 @@ abstract class BaseTestCase extends TestCase
         };
     }
 
-    protected function createClient($baseUrl, $keyId, $secretKey, $handlerStack): BaseClient {
+    protected function createClient($baseUrl, $keyId, $secretKey, $handlerStack): AlpacaMarketData|AlpacaTrading {
         return match($this->getAlpacaApiType()) {
             AlpacaTrading::class => new TradingClient($baseUrl, $keyId, $secretKey, $handlerStack),
             AlpacaMarketData::class => new MarketDataClient($baseUrl, $keyId, $secretKey, $handlerStack),
@@ -101,7 +101,7 @@ abstract class BaseTestCase extends TestCase
         return new Response($this->mockResponseCode, [], $this->mockResponse);
     }
 
-    protected function getMockClient(): BaseClient
+    protected function getMockClient(): AlpacaTrading|AlpacaMarketData
     {
         $handler = new MockHandler([
             $this->mockResponse()

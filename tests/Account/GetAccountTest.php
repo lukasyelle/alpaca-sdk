@@ -46,7 +46,7 @@ class GetAccountTest extends BaseTestCase
     /**
      * @test
      */
-    function it_can_get_account_information()
+    function itCanGetAccountInformation()
     {
         $api = new Account($this->mockClient);
 
@@ -63,10 +63,10 @@ class GetAccountTest extends BaseTestCase
     /**
      * @test
      */
-    function it_can_get_account_information_through_facade()
+    function itCanGetAccountInformationThroughFacade()
     {
-        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')
-        ->once();
+        $expectedResponse = new Collection(json_decode($this->mockResponse));
+        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')->once()->andReturn($expectedResponse);
 
         \Lukasyelle\AlpacaSdk\Facades\Account\Account::get();
     }
