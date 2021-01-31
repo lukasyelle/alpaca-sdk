@@ -38,15 +38,20 @@ class GetAccountTest extends BaseTestCase
         "transfers_blocked": false
     }';
 
-    function getAlpacaApiType(): string
+    public function getAlpacaApiType(): string
     {
         return AlpacaTrading::class;
+    }
+
+    private function expectedResult(): Collection
+    {
+        return new Collection(json_decode($this->mockResponse));
     }
 
     /**
      * @test
      */
-    function itCanGetAccountInformation()
+    public function itCanGetAccountInformation()
     {
         $api = new Account($this->mockClient);
 
@@ -56,17 +61,15 @@ class GetAccountTest extends BaseTestCase
         $this->assertSame('/v2/account', $this->getLastRequestUri()->getPath());
         $this->assertSame('paper-api.alpaca.markets', $this->getLastRequestUri()->getHost());
 
-        $this->assertInstanceOf(Collection::class, $response);
-        $this->assertSame('ACTIVE', $response['status']);
+        $this->assertSameSize($this->expectedResult(), $response);
     }
 
     /**
      * @test
      */
-    function itCanGetAccountInformationThroughFacade()
+    public function itCanGetAccountInformationThroughFacade()
     {
-        $expectedResponse = new Collection(json_decode($this->mockResponse));
-        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')->once()->andReturn($expectedResponse);
+        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')->once()->andReturn($this->expectedResult());
 
         \Lukasyelle\AlpacaSdk\Facades\Account\Account::get();
     }
