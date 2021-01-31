@@ -6,7 +6,7 @@
 
 ### Note: This package is currently under heavy development.
 
-A PHP Package for interacting with the [Trading](https://alpaca.markets/docs/api-documentation/api-v2/) and [Market Data](https://alpaca.markets/docs/api-documentation/api-v2/market-data/) APIs from [Alpaca](https://alpaca.markets/).
+An unofficial PHP Package for interacting with the [Trading](https://alpaca.markets/docs/api-documentation/api-v2/) and [Market Data](https://alpaca.markets/docs/api-documentation/api-v2/market-data/) APIs from [Alpaca](https://alpaca.markets/).
 
 ## Installation
 
