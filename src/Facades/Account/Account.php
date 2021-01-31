@@ -2,9 +2,9 @@
 
 namespace Lukasyelle\AlpacaSdk\Facades\Account;
 
-use Illuminate\Support\Facades\Facade;
+use Lukasyelle\AlpacaSdk\Facades\BaseRequestFacade;
 
-class Account extends Facade
+class Account extends BaseRequestFacade
 {
     public static function getFacadeAccessor(): string
     {

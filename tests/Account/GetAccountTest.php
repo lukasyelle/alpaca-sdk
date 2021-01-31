@@ -52,9 +52,22 @@ class GetAccountTest extends BaseTestCase
 
         $response = $api->get();
 
-        $this->assertSame('paper-api.alpaca.markets', $this->getLastRequestUri()->getHost());
+        $this->assertSame('/v2/account', $api->endpoint);
         $this->assertSame('/v2/account', $this->getLastRequestUri()->getPath());
+        $this->assertSame('paper-api.alpaca.markets', $this->getLastRequestUri()->getHost());
+
         $this->assertInstanceOf(Collection::class, $response);
         $this->assertSame('ACTIVE', $response['status']);
+    }
+
+    /**
+     * @test
+     */
+    function it_can_get_account_information_through_facade()
+    {
+        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')
+        ->once();
+
+        \Lukasyelle\AlpacaSdk\Facades\Account\Account::get();
     }
 }

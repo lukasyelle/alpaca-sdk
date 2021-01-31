@@ -5,14 +5,15 @@ namespace Lukasyelle\AlpacaSdk\Tests;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Uri;
 use Illuminate\Foundation\Application;
 use Lukasyelle\AlpacaSdk\AlpacaSdkServiceProvider;
 use Lukasyelle\AlpacaSdk\Client;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaMarketData;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
+use Lukasyelle\AlpacaSdk\Facades\Account\Account;
 use Orchestra\Testbench\TestCase;
+use Psr\Http\Message\UriInterface;
 
 abstract class BaseTestCase extends TestCase
 {
@@ -22,18 +23,19 @@ abstract class BaseTestCase extends TestCase
     protected MockHandler $handler;
     protected string $alpacaApi = '';
 
+    /**
+     * @return string A class path reference to an Alpaca Contract
+     */
+    abstract protected function getAlpacaApiType(): string;
+
+    /**
+     * @param $app
+     *
+     * @return array
+     */
     protected function getPackageProviders($app): array
     {
         return [AlpacaSdkServiceProvider::class];
-    }
-
-    /**
-     * @throws InvalidConfig
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->mockClient = $this->getMockClient();
     }
 
     /**
@@ -53,9 +55,23 @@ abstract class BaseTestCase extends TestCase
         $app['config']->set('alpaca-sdk.key_id', 'vakmMcxnAjJNTTvMhIUU');
     }
 
-    abstract protected function getAlpacaApiType(): string;
+    protected function getPackageAliases($app)
+    {
+        return [
+            'Account' => Account::class,
+        ];
+    }
 
-    protected function getLastRequestUri(): Uri
+    /**
+     * @throws InvalidConfig
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->mockClient = $this->getMockClient();
+    }
+
+    protected function getLastRequestUri(): UriInterface
     {
         return $this->handler->getLastRequest()->getUri();
     }
@@ -69,6 +85,11 @@ abstract class BaseTestCase extends TestCase
             AlpacaTrading::class => $config['alpaca-sdk.live_trading'] ? $config['alpaca-sdk.live_base_url'] : $config['alpaca-sdk.paper_base_url'],
             AlpacaMarketData::class => $config['alpaca-sdk.data_base_url'],
         };
+    }
+
+    protected function mockResponse(): Response
+    {
+        return new Response($this->mockResponseCode, [], $this->mockResponse);
     }
 
     protected function getMockClient(): Client
@@ -95,10 +116,5 @@ abstract class BaseTestCase extends TestCase
         ]);
 
         return new Client($guzzle);
-    }
-
-    protected function mockResponse(): Response
-    {
-        return new Response($this->mockResponseCode, [], $this->mockResponse);
     }
 }

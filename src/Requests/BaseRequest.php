@@ -26,7 +26,7 @@ abstract class BaseRequest
     /**
      * @throws InvalidData
      */
-    public function send(): Collection
+    protected function send(): Collection
     {
         $this->validateParams();
 
