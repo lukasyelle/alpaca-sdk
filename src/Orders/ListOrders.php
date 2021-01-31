@@ -72,7 +72,7 @@ class ListOrders extends Trading
 
     /**
      * The response will include only ones submitted after this timestamp
-     * (exclusive.)
+     * (exclusive.).
      *
      * @param int $timestamp
      *
@@ -87,7 +87,7 @@ class ListOrders extends Trading
 
     /**
      * The response will include only ones submitted until this timestamp
-     * (exclusive.)
+     * (exclusive.).
      *
      * @param int $timestamp
      *
@@ -102,7 +102,7 @@ class ListOrders extends Trading
 
     /**
      * Set The chronological order of response based on the submission time to
-     * ascending
+     * ascending.
      *
      * @return ListOrders
      */
@@ -115,7 +115,7 @@ class ListOrders extends Trading
 
     /**
      * Set The chronological order of response based on the submission time to
-     * descending
+     * descending.
      *
      * @return ListOrders
      */

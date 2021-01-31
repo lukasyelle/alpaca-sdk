@@ -13,7 +13,7 @@ class InvalidData extends Exception
      */
     public static function missingParams(array $params)
     {
-        return new static('Endpoint requires parameters: ' . implode(',', $params));
+        return new static('Endpoint requires parameters: '.implode(',', $params));
     }
 
     /**

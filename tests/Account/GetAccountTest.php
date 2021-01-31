@@ -2,10 +2,8 @@
 
 namespace Lukasyelle\AlpacaSdk\Tests\Account;
 
-use Illuminate\Support\Collection;
 use Lukasyelle\AlpacaSdk\Account\Account;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
-use Lukasyelle\AlpacaSdk\Requests\BaseRequest;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
 class GetAccountTest extends BaseTestCase

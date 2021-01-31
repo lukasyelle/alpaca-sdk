@@ -3,11 +3,11 @@
 namespace Lukasyelle\AlpacaSdk\Clients;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
 use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
-use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -30,10 +30,10 @@ class BaseClient implements Alpaca
     {
         $this->client = new Client([
             'base_uri' => $baseUrl,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'APCA-API-KEY-ID' => $keyId,
+            'headers'  => [
+                'Accept'              => 'application/json',
+                'Content-Type'        => 'application/json',
+                'APCA-API-KEY-ID'     => $keyId,
                 'APCA-API-SECRET-KEY' => $secretKey,
             ],
             'handler' => $handlerStack,
@@ -50,8 +50,7 @@ class BaseClient implements Alpaca
     {
         try {
             return $this->client->send($request, $options);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             throw InvalidData::badData($e->getMessage());
         }
     }

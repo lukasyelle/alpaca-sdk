@@ -66,5 +66,5 @@ return [
     | secure.
     |
     */
-    'key_id' => env('ALPACA_KEY_ID')
+    'key_id' => env('ALPACA_KEY_ID'),
 ];

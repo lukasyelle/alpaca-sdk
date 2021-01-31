@@ -11,7 +11,6 @@ use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
 
 class AlpacaSdkServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      */
@@ -50,7 +49,7 @@ class AlpacaSdkServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  array|null  $config
+     * @param array|null $config
      */
     protected function guardAgainstInvalidConfig(array $config = null): void
     {

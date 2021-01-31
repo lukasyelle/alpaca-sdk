@@ -8,8 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 interface Alpaca
 {
     /**
-     * @param  RequestInterface  $request
-     * @param  array  $options
+     * @param RequestInterface $request
+     * @param array            $options
      *
      * @return ResponseInterface
      */
