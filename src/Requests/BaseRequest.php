@@ -2,11 +2,10 @@
 
 namespace Lukasyelle\AlpacaSdk\Requests;
 
-use GuzzleHttp\Psr7\Uri;
-use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
-use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Collection;
+use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
+use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 
 abstract class BaseRequest
 {
@@ -55,8 +54,9 @@ abstract class BaseRequest
     }
 
     /**
-     * @return Collection
      * @throws InvalidData
+     *
+     * @return Collection
      */
     public function post(): Collection
     {
@@ -80,12 +80,13 @@ abstract class BaseRequest
     /**
      * @param string $params
      *
-     * @return void
      * @throws InvalidData
+     *
+     * @return void
      */
     protected function validateParams(string $params): void
     {
-        $requiredString = 'required' . ucfirst($params);
+        $requiredString = 'required'.ucfirst($params);
         if ($this->$requiredString) {
             $missingParams = array_diff($this->requiredBodyParams, array_keys($this->$params));
             if ($missingParams) {

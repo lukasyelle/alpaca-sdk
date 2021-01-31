@@ -2,9 +2,9 @@
 
 namespace Lukasyelle\AlpacaSdk\Tests\Unit;
 
-use Lukasyelle\AlpacaSdk\Facades\Account\Account;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
+use Lukasyelle\AlpacaSdk\Facades\Account\Account;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
 class ConfigTest extends BaseTestCase
