@@ -19,8 +19,6 @@
     <env name="SESSION_DRIVER" value="array"/>
     <env name="QUEUE_DRIVER" value="sync"/>
     <env name="MAIL_DRIVER" value="array"/>
-    <env name="ALPACA_KEY_ID" value="TEST"/>
-    <env name="ALPACA_SECRET_KEY" value="TEST"/>
   </php>
   <logging/>
 </phpunit>
