@@ -4,7 +4,6 @@ namespace Lukasyelle\AlpacaSdk\Tests\Unit;
 
 use Lukasyelle\AlpacaSdk\Facades\Account\Account;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
-use Lukasyelle\AlpacaSdk\Contracts\AlpacaMarketData;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
