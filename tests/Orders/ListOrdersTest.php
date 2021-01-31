@@ -3,6 +3,7 @@
 namespace Lukasyelle\AlpacaSdk\Tests\Orders;
 
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
+use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 use Lukasyelle\AlpacaSdk\Orders\ListOrders;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
@@ -141,6 +142,18 @@ class ListOrdersTest extends BaseTestCase
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('limit=10', $lastUri->getQuery());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldFailTakingMoreThan500()
+    {
+        $api = new ListOrders($this->mockClient);
+
+        $this->expectException(InvalidData::class);
+
+        $api->take(501)->get();
     }
 
     /**
