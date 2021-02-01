@@ -4,7 +4,7 @@
 
 Used to List all past and current orders on your Alpaca account.
 
-**Basic Composer Project Example**
+#### Basic Composer Project Example
 
 ```php
 use Lukasyelle\AlpacaSdk\Clients\TradingClient;
@@ -14,7 +14,7 @@ $client = new TradingClient($baseUrl, $keyId, $secretKey);
 $endpoint = new ListOrders($client);
 $response = $endpoint->get();
 ```
-**Laravel Equivalent**
+#### Laravel Equivalent
 ```php
 use Lukasyelle\AlpacaSdk\Facades\Orders\ListOrders;
 
@@ -92,7 +92,7 @@ Collection {#275 ▼
 }
 ```
 
-**API Documentation**
+#### API Documentation
 
 The ListOrders class exposes several methods which allow for setting the same flags that are present within the [Alpaca 
 API](https://alpaca.markets/docs/api-documentation/api-v2/orders/) in a fluent manner. These methods are all available 
