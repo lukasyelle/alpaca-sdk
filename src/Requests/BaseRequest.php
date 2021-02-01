@@ -88,7 +88,9 @@ abstract class BaseRequest
     {
         $requiredString = 'required'.ucfirst($params);
         if ($this->$requiredString) {
-            $missingParams = array_diff($this->requiredBodyParams, array_keys($this->$params));
+            $missingParams = array_filter($this->$requiredString, function($param) use ($params) {
+                return in_array($param, $this->$params);
+            });
             if ($missingParams) {
                 throw InvalidData::missingParams($missingParams);
             }

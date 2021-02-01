@@ -26,7 +26,7 @@ class CreateOrder extends Trading
         $this->order = is_array($order) ? new Order($order) : $order;
 
         $this->bodyParams = $this->order->toArray();
-        $this->requiredQueryParams = $this->order->requiredParams;
+        $this->requiredBodyParams = $this->order->requiredParams;
 
         return $this->send();
     }

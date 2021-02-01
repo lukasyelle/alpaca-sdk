@@ -44,7 +44,6 @@ class CreateOrderTest extends BaseTestCase
 
     private array $orderData = [
         "client_order_id" => "904837e3-3b76-47ec-b432-046db621571b",
-        "replaces" => null,
         "symbol" => "AAPL",
         "qty" => "15",
         "type" => "market",
@@ -72,6 +71,15 @@ class CreateOrderTest extends BaseTestCase
         $this->assertIsObject($api->order, 'Order object was not created');
         $this->assertStringContainsString(Order::class, get_class($api->order));
         $this->assertSameSize($this->orderData, $api->order->toArray());
+    }
+
+    /** @test */
+    public function itShouldSetProperRequestFields()
+    {
+        $api = new CreateOrder($this->mockClient, $this->orderData);
+
+        $this->assertIsArray($api->bodyParams, 'Body Params should be an array');
+        $this->assertSameSize($api->bodyParams, $this->orderData);
     }
 
     /** @test */
@@ -249,7 +257,6 @@ class CreateOrderTest extends BaseTestCase
 
         new CreateOrder($this->mockClient, $this->orderData);
     }
-
 
     /** @test */
     public function itCanCreateOrdersThroughFacade()
