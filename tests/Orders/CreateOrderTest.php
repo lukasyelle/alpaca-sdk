@@ -43,27 +43,26 @@ class CreateOrderTest extends BaseTestCase
     }';
 
     private array $orderData = [
-        "client_order_id" => "904837e3-3b76-47ec-b432-046db621571b",
-        "replaces" => null,
-        "symbol" => "AAPL",
-        "qty" => "15",
-        "type" => "market",
-        "side" => "buy",
-        "time_in_force" => "day",
-        "limit_price" => "107.00",
-        "stop_price" => "106.00",
-        "status" => "accepted",
-        "extended_hours" => false,
-        "legs" => null,
-        "trail_price" => "1.05",
-        "trail_percent" => null,
+        'client_order_id' => '904837e3-3b76-47ec-b432-046db621571b',
+        'replaces'        => null,
+        'symbol'          => 'AAPL',
+        'qty'             => '15',
+        'type'            => 'market',
+        'side'            => 'buy',
+        'time_in_force'   => 'day',
+        'limit_price'     => '107.00',
+        'stop_price'      => '106.00',
+        'status'          => 'accepted',
+        'extended_hours'  => false,
+        'legs'            => null,
+        'trail_price'     => '1.05',
+        'trail_percent'   => null,
     ];
-    
+
     protected function getAlpacaApiType(): string
     {
         return AlpacaTrading::class;
     }
-
 
     public function anOrderObjectShouldBeCreated()
     {
@@ -210,7 +209,7 @@ class CreateOrderTest extends BaseTestCase
     public function anInvalidDataExceptionShouldBeThrownIfLimitPriceNullForTakeProfitPropertyOfAdvancedOrder()
     {
         $this->orderData['take_profit'] = [
-            'limit_price' => null
+            'limit_price' => null,
         ];
 
         $this->expectException(InvalidData::class);
@@ -242,14 +241,13 @@ class CreateOrderTest extends BaseTestCase
     public function anInvalidDataExceptionShouldBeThrownIfLimitPriceNullForStopLossPropertyOfAdvancedOrder()
     {
         $this->orderData['stop_loss'] = [
-            'stop_price' => null
+            'stop_price' => null,
         ];
 
         $this->expectException(InvalidData::class);
 
         new CreateOrder($this->mockClient, $this->orderData);
     }
-
 
     /** @test */
     public function itCanCreateOrdersThroughFacade()
