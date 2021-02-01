@@ -4,7 +4,7 @@ namespace Lukasyelle\AlpacaSdk\Facades\Account;
 
 use Lukasyelle\AlpacaSdk\Facades\BaseRequestFacade;
 
-class Account extends BaseRequestFacade
+class Details extends BaseRequestFacade
 {
     public static function getFacadeAccessor(): string
     {

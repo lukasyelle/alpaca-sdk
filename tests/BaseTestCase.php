@@ -14,7 +14,7 @@ use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaMarketData;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
-use Lukasyelle\AlpacaSdk\Facades\Account\Account;
+use Lukasyelle\AlpacaSdk\Facades\Account\Details;
 use Orchestra\Testbench\TestCase;
 use Psr\Http\Message\UriInterface;
 
@@ -65,7 +65,7 @@ abstract class BaseTestCase extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Account' => Account::class,
+            'Account' => Details::class,
         ];
     }
 

@@ -63,8 +63,8 @@ class GetAccountTest extends BaseTestCase
      */
     public function itCanGetAccountInformationThroughFacade()
     {
-        \Lukasyelle\AlpacaSdk\Facades\Account\Account::shouldReceive('get')->once()->andReturn($this->expectedResult());
+        \Lukasyelle\AlpacaSdk\Facades\Account\Details::shouldReceive('get')->once()->andReturn($this->expectedResult());
 
-        \Lukasyelle\AlpacaSdk\Facades\Account\Account::get();
+        \Lukasyelle\AlpacaSdk\Facades\Account\Details::get();
     }
 }

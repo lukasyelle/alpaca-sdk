@@ -4,7 +4,7 @@ namespace Lukasyelle\AlpacaSdk\Tests\Unit;
 
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidConfig;
-use Lukasyelle\AlpacaSdk\Facades\Account\Account;
+use Lukasyelle\AlpacaSdk\Facades\Account\Details;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
 class ConfigTest extends BaseTestCase
@@ -25,7 +25,7 @@ class ConfigTest extends BaseTestCase
 
         $this->expectException(InvalidConfig::class);
 
-        Account::get();
+        Details::get();
     }
 
     /**
@@ -37,7 +37,7 @@ class ConfigTest extends BaseTestCase
 
         $this->expectException(InvalidConfig::class);
 
-        Account::get();
+        Details::get();
     }
 
     /**
@@ -49,7 +49,7 @@ class ConfigTest extends BaseTestCase
 
         $this->expectException(InvalidConfig::class);
 
-        Account::get();
+        Details::get();
     }
 
     /**
@@ -61,7 +61,7 @@ class ConfigTest extends BaseTestCase
 
         $this->expectException(InvalidConfig::class);
 
-        Account::get();
+        Details::get();
     }
 
     /**
@@ -73,6 +73,6 @@ class ConfigTest extends BaseTestCase
 
         $this->expectException(InvalidConfig::class);
 
-        Account::get();
+        Details::get();
     }
 }

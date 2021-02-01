@@ -15,10 +15,11 @@ $endpoint = new Details($client);
 $response = $endpoint->get();
 ```
 **Laravel Equivalent**
-```php
-use Lukasyelle\AlpacaSdk\Facades\Account\Account;
 
-$response = Account::get();
+```php
+use Lukasyelle\AlpacaSdk\Facades\Account\Details;
+
+$response = Details::get();
 ```
 
 **Response**

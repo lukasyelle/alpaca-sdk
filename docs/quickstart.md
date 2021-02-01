@@ -123,9 +123,9 @@ class BarClass {
 Alternatively you may use the provided facades directly. This provides a much faster and fluent interface to the various endpoints.
 
 ```php
-use \Lukasyelle\AlpacaSdk\Facades\Account\Account;
+use \Lukasyelle\AlpacaSdk\Facades\Account\Details;
 
-$response = Account::get();
+$response = Details::get();
 ```
 
 Some endpoints require extra parameters being passed to the endpoint object. Please see each endpoint documentation for requirements and example usage.
