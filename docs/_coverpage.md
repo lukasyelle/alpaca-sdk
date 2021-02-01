@@ -12,4 +12,4 @@
 [GitHub](https://github.com/lukasyelle/alpaca-sdk/)
 [Get Started](/getting-started.md)
 
-![color](#FFD700)
+![color](#F7F8FB)
