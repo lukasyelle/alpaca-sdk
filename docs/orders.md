@@ -96,7 +96,7 @@ Collection {#275 ▼
 
 The ListOrders class exposes several methods which allow for setting the same flags that are present within the [Alpaca 
 API](https://alpaca.markets/docs/api-documentation/api-v2/orders/) in a fluent manner. These methods are all available 
-in the provided Facade for l=Laravel use cases as well as the class for default composer project usage. The following 
+in the provided Facade for Laravel use cases as well as the class for default composer project usage. The following 
 examples will assume usage from within a Laravel application. 
 
 * ```php 
