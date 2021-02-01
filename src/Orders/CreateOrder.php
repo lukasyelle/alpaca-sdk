@@ -21,7 +21,7 @@ class CreateOrder extends Trading
         return $order ? $this->from($order) : $this;
     }
 
-    public function from(Order|array $order): Collection
+    public function from(Order | array $order): Collection
     {
         $this->order = is_array($order) ? new Order($order) : $order;
 

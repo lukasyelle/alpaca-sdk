@@ -57,12 +57,11 @@ class CreateOrderTest extends BaseTestCase
         "trail_price" => "1.05",
         "trail_percent" => null,
     ];
-    
+
     protected function getAlpacaApiType(): string
     {
         return AlpacaTrading::class;
     }
-
 
     public function anOrderObjectShouldBeCreated()
     {
@@ -218,7 +217,7 @@ class CreateOrderTest extends BaseTestCase
     public function anInvalidDataExceptionShouldBeThrownIfLimitPriceNullForTakeProfitPropertyOfAdvancedOrder()
     {
         $this->orderData['take_profit'] = [
-            'limit_price' => null
+            'limit_price' => null,
         ];
 
         $this->expectException(InvalidData::class);
@@ -250,7 +249,7 @@ class CreateOrderTest extends BaseTestCase
     public function anInvalidDataExceptionShouldBeThrownIfLimitPriceNullForStopLossPropertyOfAdvancedOrder()
     {
         $this->orderData['stop_loss'] = [
-            'stop_price' => null
+            'stop_price' => null,
         ];
 
         $this->expectException(InvalidData::class);
