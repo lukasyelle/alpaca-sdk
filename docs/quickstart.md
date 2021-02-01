@@ -96,9 +96,11 @@ ALPACA_KEY_ID=vakmMcxnAjJNTTvMhIUU
 ALPACA_SECRET_KEY=vakmMcxnAjJNTTvMhIUUYXeAZcwTbkZjRdYIbmum
 ```
 
+By default, the SDK will pass all trading requests through the paper trading API. Set the live trading environment variable to ```true``` to start using your actual brokerage account.
+
 #### Application container
 
-The Application container will automatically resolve the correct `Alpaca SDK Client` dependencies for you when calling any endpoint. Which means you can just type hint your endpoint to retrieve the object from the container with all configurations in place.
+The Application container will automatically resolve the correct `Alpaca Client` dependencies for you when calling any endpoint. Which means you can just type hint your endpoint to retrieve the object from the container with all configurations in place.
 
 ```php
 use \Lukasyelle\AlpacaSdk\Account\Account;
