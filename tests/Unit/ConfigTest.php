@@ -16,9 +16,7 @@ class ConfigTest extends BaseTestCase
         return $this->api;
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itFailsWithEmptySecretKey()
     {
         $this->app['config']->set('alpaca-sdk.secret_key', '');
@@ -28,9 +26,7 @@ class ConfigTest extends BaseTestCase
         Details::get();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itFailsWithEmptyKeyID()
     {
         $this->app['config']->set('alpaca-sdk.key_id', '');
@@ -40,9 +36,7 @@ class ConfigTest extends BaseTestCase
         Details::get();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itFailsWithEmptyPaperBaseUrl()
     {
         $this->app['config']->set('alpaca-sdk.paper_base_url', '');
@@ -52,9 +46,7 @@ class ConfigTest extends BaseTestCase
         Details::get();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itFailsWithEmptyLiveBaseUrl()
     {
         $this->app['config']->set('alpaca-sdk.live_base_url', '');
@@ -64,9 +56,7 @@ class ConfigTest extends BaseTestCase
         Details::get();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itFailsWithEmptyLiveDataUrl()
     {
         $this->app['config']->set('alpaca-sdk.data_base_url', '');

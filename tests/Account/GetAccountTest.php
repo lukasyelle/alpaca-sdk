@@ -42,9 +42,7 @@ class GetAccountTest extends BaseTestCase
         return AlpacaTrading::class;
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itCanGetAccountInformation()
     {
         $api = new Details($this->mockClient);
@@ -58,9 +56,7 @@ class GetAccountTest extends BaseTestCase
         $this->assertSameSize($this->expectedResult(), $response);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itCanGetAccountInformationThroughFacade()
     {
         \Lukasyelle\AlpacaSdk\Facades\Account\Details::shouldReceive('get')->once()->andReturn($this->expectedResult());
