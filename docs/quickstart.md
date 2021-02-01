@@ -27,15 +27,15 @@ The SDK makes it easy to interact with all the Alpaca APIs.
 ```php
 $liveTradingClient = new \Lukasyelle\AlpacaSdk\Clients\TradingClient($liveApiBaseUrl, $keyId, $secretKey);
 $paperTradingClient = new \Lukasyelle\AlpacaSdk\Clients\TradingClient($paperApiBaseUrl, $keyId, $secretKey);
-$dataTradingClient = new \Lukasyelle\AlpacaSdk\Clients\TradingClient($dataApiBaseUrl, $keyId, $secretKey);
+$marketDataClient = new \Lukasyelle\AlpacaSdk\Clients\MarketDataClient($dataApiBaseUrl, $keyId, $secretKey);
 ```
 
-The above clients can now be used as a dependency for communicating with various endpoints. for example, to call the `account` endpoint - 
+The above clients can now be used as a dependency for communicating with various endpoints. for example, to call the `account` endpoint -
 
 ```php
-use Lukasyelle\AlpacaSdk\Account\Account;
+use Lukasyelle\AlpacaSdk\Account\Details;
 
-$account = new Account($liveTradingClient);
+$account = new Details($liveTradingClient);
 $response = $account->get();
 
 print_r($response);
@@ -103,18 +103,18 @@ By default, the SDK will pass all trading requests through the paper trading API
 The Application container will automatically resolve the correct `Alpaca Client` dependencies for you when calling any endpoint. Which means you can just type hint your endpoint to retrieve the object from the container with all configurations in place.
 
 ```php
-use \Lukasyelle\AlpacaSdk\Account\Account;
+use \Lukasyelle\AlpacaSdk\Account\Details;
 
 // From a constructor
 class FooClass {
-    public function __construct(Account $account) {
+    public function __construct(Details $account) {
        $response = $account->get();
     }
 }
 
 // From a method
 class BarClass {
-    public function barMethod(Account $account) {
+    public function barMethod(Details $account) {
        $response = $account->get();
     }
 }

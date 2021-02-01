@@ -2,7 +2,7 @@
 
 namespace Lukasyelle\AlpacaSdk\Tests\Account;
 
-use Lukasyelle\AlpacaSdk\Account\Account;
+use Lukasyelle\AlpacaSdk\Account\Details;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
 
@@ -47,7 +47,7 @@ class GetAccountTest extends BaseTestCase
      */
     public function itCanGetAccountInformation()
     {
-        $api = new Account($this->mockClient);
+        $api = new Details($this->mockClient);
 
         $response = $api->get();
 

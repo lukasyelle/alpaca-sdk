@@ -8,6 +8,6 @@ class Account extends BaseRequestFacade
 {
     public static function getFacadeAccessor(): string
     {
-        return \Lukasyelle\AlpacaSdk\Account\Account::class;
+        return \Lukasyelle\AlpacaSdk\Account\Details::class;
     }
 }
