@@ -6,7 +6,7 @@ This allows for the easy development of algorithmic trading strategies, and it's
 
 #### Development
 
-!> This PHP package is in heavy development. If you'd like to contribute, 
+!> This PHP package is in heavy development. Changes may be made that break compatibility with prior versions for the foreseeable future.
 
 #### What next?
 Read the [Quick Start](quickstart.md) 
