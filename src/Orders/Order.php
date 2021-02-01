@@ -5,7 +5,7 @@ namespace Lukasyelle\AlpacaSdk\Orders;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 
 /**
- * Parameters
+ * Parameters.
  *
  * symbol          - string Required: symbol or asset ID to identify the asset to trade
  * qty             - string<int> Required: number of shares to trade
@@ -25,7 +25,6 @@ use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
  *                        stop_price - string<number> Required: required for bracket orders
  *                        limit_price - string<number>: the stop-loss order becomes a stop-limit order if specified
  */
-
 class Order
 {
     protected array $order = [];
@@ -37,10 +36,10 @@ class Order
     protected string $side;
     protected string $type;
     protected string $time_in_force;
-    protected float|null $limit_price = null;
-    protected float|null $stop_price = null;
-    protected float|null $trail_price = null;
-    protected float|null $trail_percent = null;
+    protected float | null $limit_price = null;
+    protected float | null $stop_price = null;
+    protected float | null $trail_price = null;
+    protected float | null $trail_percent = null;
 
     public array $requiredParams = [
         'symbol'            => 'string',
@@ -66,7 +65,7 @@ class Order
     private function verifyRequiredParams(): void
     {
         foreach ($this->requiredParams as $key => $value) {
-            if (! array_key_exists($key, $this->order)) {
+            if (!array_key_exists($key, $this->order)) {
                 throw new InvalidData("'$key' is required for new orders but was not passed.");
             } elseif ($this->order[$key] === null) {
                 throw new InvalidData("'$key' is required for new orders but was null.");
@@ -92,9 +91,9 @@ class Order
     {
         foreach ($keys as $key) {
             if (
-                ! is_array($array) ||
-                ! array_key_exists($key, $array) ||
-                ($array[$key] == null && ! $nullable)
+                !is_array($array) ||
+                !array_key_exists($key, $array) ||
+                ($array[$key] == null && !$nullable)
             ) {
                 throw new InvalidData("When adding an advanced parameter you must supply a valid $key as part of the object.");
             }
@@ -120,7 +119,7 @@ class Order
         if ($this->type == 'trailing_stop') {
             // Set one of either trail_price or trail_percent to required based
             // on which one is not present.
-            if (! array_key_exists('trail_price', $this->order)) {
+            if (!array_key_exists('trail_price', $this->order)) {
                 $this->requiredParams['trail_percent'] = 'float';
             } else {
                 $this->requiredParams['trail_price'] = 'float';
