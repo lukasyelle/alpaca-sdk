@@ -71,185 +71,139 @@ class ListOrdersTest extends BaseTestCase
         "hwm": "108.05"
     }]';
 
+    private ListOrders $api;
+
     protected function getAlpacaApiType(): string
     {
         return AlpacaTrading::class;
     }
 
-    /**
-     * //     * @test
-     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->api = new ListOrders($this->mockClient);
+    }
+
+    /** @test */
     public function itShouldListOrders()
     {
-        $api = new ListOrders($this->mockClient);
+        $response = $this->api->get();
 
-        $response = $api->get();
-
-        $this->assertSame('/v2/orders', $api->endpoint);
+        $this->assertSame('/v2/orders', $this->api->endpoint);
         $this->assertSame('/v2/orders', $this->getLastRequestUri()->getPath());
         $this->assertSame('paper-api.alpaca.markets', $this->getLastRequestUri()->getHost());
 
         $this->assertSameSize($this->expectedResult(), $response);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddOpenStatusFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->open()->get();
+        $this->api->open()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('status=open', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddClosedStatusFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->closed()->get();
+        $this->api->closed()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('status=closed', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddAllStatusFlags()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->all()->get();
+        $this->api->all()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertStringContainsString('status=all', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddLimitFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->take(10)->get();
+        $this->api->take(10)->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('limit=10', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldFailTakingMoreThan500()
     {
-        $api = new ListOrders($this->mockClient);
-
         $this->expectException(InvalidData::class);
 
-        $api->take(501)->get();
+        $this->api->take(501)->get();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddAfterFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->after(0)->get();
+        $this->api->after(0)->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('after=0', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddUntilFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->until(0)->get();
+        $this->api->until(0)->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('until=0', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddDirectionAscFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->asc()->get();
+        $this->api->asc()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('direction=asc', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddDirectionDescFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->desc()->get();
+        $this->api->desc()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('direction=desc', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddNestedFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->nested()->get();
+        $this->api->nested()->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('nested=1', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddSingleSymbolToSymbolsFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->whereSymbol('AAPL')->get();
+        $this->api->whereSymbol('AAPL')->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('symbols=AAPL', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddMultipleSymbolsToSymbolsFlag()
     {
-        $api = new ListOrders($this->mockClient);
-
-        $api->whereSymbols(['AAPL', 'AMD', 'GME'])->get();
+        $this->api->whereSymbols(['AAPL', 'AMD', 'GME'])->get();
 
         $lastUri = $this->getLastRequestUri();
         $this->assertSame('symbols=AAPL%2CAMD%2CGME', $lastUri->getQuery());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itCanListOrdersThroughFacade()
     {
         \Lukasyelle\AlpacaSdk\Facades\Orders\ListOrders::shouldReceive('get')->once()->andReturn($this->expectedResult());
