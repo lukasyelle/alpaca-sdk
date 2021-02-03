@@ -43,19 +43,19 @@ class CreateOrderTest extends BaseTestCase
     }';
 
     private array $orderData = [
-        "client_order_id" => "904837e3-3b76-47ec-b432-046db621571b",
-        "symbol" => "AAPL",
-        "qty" => "15",
-        "type" => "market",
-        "side" => "buy",
-        "time_in_force" => "day",
-        "limit_price" => "107.00",
-        "stop_price" => "106.00",
-        "status" => "accepted",
-        "extended_hours" => false,
-        "legs" => null,
-        "trail_price" => "1.05",
-        "trail_percent" => null,
+        'client_order_id' => '904837e3-3b76-47ec-b432-046db621571b',
+        'symbol'          => 'AAPL',
+        'qty'             => '15',
+        'type'            => 'market',
+        'side'            => 'buy',
+        'time_in_force'   => 'day',
+        'limit_price'     => '107.00',
+        'stop_price'      => '106.00',
+        'status'          => 'accepted',
+        'extended_hours'  => false,
+        'legs'            => null,
+        'trail_price'     => '1.05',
+        'trail_percent'   => null,
     ];
 
     protected function getAlpacaApiType(): string
