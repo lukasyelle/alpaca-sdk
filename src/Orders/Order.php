@@ -2,6 +2,8 @@
 
 namespace Lukasyelle\AlpacaSdk\Orders;
 
+use Illuminate\Support\Collection;
+use Lukasyelle\AlpacaSdk\Contracts\Alpaca;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 
 /**
@@ -62,6 +64,50 @@ class Order
         return $this->order;
     }
 
+    /**
+     * Helper method to the CreateOrder facade. Makes for a simple way to create
+     * an order from the Order object itself.
+     *
+     * If needed, you can change the client it sends the request through, this
+     * is only used in tests at the moment.
+     *
+     * @param Alpaca|null $client
+     *
+     * @return Collection
+     */
+    public function create(Alpaca $client = null): Collection
+    {
+        if ($client) {
+            return \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::setClient($client)->from($this);
+        }
+
+        return \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::from($this);
+    }
+
+    /**
+     * Helper method to the GetOrder facade. Makes for a simple way to get an
+     * order from the Order class itself with just an ID.
+     *
+     * If needed, you can change the client it sends the request through, this
+     * is only used in tests at the moment.
+     *
+     * @param string      $orderId
+     * @param Alpaca|null $client
+     *
+     * @return Collection
+     * @throws InvalidData
+     */
+    public static function get(string $orderId, Alpaca $client = null): Collection
+    {
+        $api = \Lukasyelle\AlpacaSdk\Facades\Orders\GetOrder::setOrderId($orderId);
+
+        if ($client) {
+            $api->setClient($client);
+        }
+
+        return $api->get();
+    }
+    
     private function verifyRequiredParams(): void
     {
         foreach ($this->requiredParams as $key => $value) {

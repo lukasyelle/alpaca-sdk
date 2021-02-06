@@ -28,6 +28,13 @@ abstract class BaseRequest
         $this->api = $api;
     }
 
+    public function setClient(Alpaca $client): self
+    {
+        $this->api = $client;
+
+        return $this;
+    }
+
     /**
      * @throws InvalidData
      */
@@ -70,10 +77,30 @@ abstract class BaseRequest
     }
 
     /**
+     * Parse the endpoint string and resolve any {tokens} to a public property
+     * on the $this object.
+     *
      * @return string
      */
     public function getFullEndpoint(): string
     {
+        $results = [];
+        preg_match_all('/\{(.*?)\}/', $this->endpoint,$results);
+        // preg_match_all will populate $results with a 2-d array with two keys.
+        // the first key will be an array of all of the matches, the second key
+        // will be an array of only the strings between '{}'.
+
+        if ($results) {
+            // go over each result and check if a property exists with the name
+            // specified. If it does, replace it in the endpoint string.
+            foreach ($results[1] as $index => $urlParam) {
+                if (property_exists($this, $urlParam)) {
+                    $keyToReplace = '{'.$results[0][$index].'}';
+                    $this->endpoint = (string) preg_replace($keyToReplace, $this->$urlParam, $this->endpoint);
+                }
+            }
+        }
+
         return $this->endpoint;
     }
 

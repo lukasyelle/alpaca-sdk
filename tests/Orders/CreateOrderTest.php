@@ -2,6 +2,7 @@
 
 namespace Lukasyelle\AlpacaSdk\Tests\Orders;
 
+use Illuminate\Support\Collection;
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
 use Lukasyelle\AlpacaSdk\Exceptions\InvalidData;
 use Lukasyelle\AlpacaSdk\Orders\CreateOrder;
@@ -263,5 +264,16 @@ class CreateOrderTest extends BaseTestCase
         \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('from')->once()->andReturn($this->expectedResult());
 
         \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::from($this->orderData);
+    }
+
+    /** @test */
+    public function itCanCreateOrdersThroughOrderClassAlias()
+    {
+        $orderToCreate = new Order($this->orderData);
+
+        $order = $orderToCreate->create($this->mockClient);
+
+        $this->assertInstanceOf(Collection::class, $order);
+        $this->assertSameSize($this->expectedResult(), $order->toArray());
     }
 }
