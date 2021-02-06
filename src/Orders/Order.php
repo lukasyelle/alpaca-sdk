@@ -94,8 +94,9 @@ class Order
      * @param string      $orderId
      * @param Alpaca|null $client
      *
-     * @return Collection
      * @throws InvalidData
+     *
+     * @return Collection
      */
     public static function get(string $orderId, Alpaca $client = null): Collection
     {
@@ -107,7 +108,7 @@ class Order
 
         return $api->get();
     }
-    
+
     private function verifyRequiredParams(): void
     {
         foreach ($this->requiredParams as $key => $value) {
