@@ -132,3 +132,85 @@ examples will assume usage from within a Laravel application.
 * ```php 
   ListOrders::whereSymbols(['AAPL', 'AMD'])->get(); // Add the symbols=AAPL%2CAMD flag to the api request.
   ```
+
+## Create
+
+Used to create a new order, or replace an existing one.
+
+
+#### Basic Composer Project Example
+
+```php
+use Lukasyelle\AlpacaSdk\Clients\TradingClient;
+use Lukasyelle\AlpacaSdk\Orders\CreateOrder;
+
+$orderData = [
+    'client_order_id' => 'whatever-you-want-unique',
+    'symbol'          => 'AAPL',
+    'qty'             => '15',
+    'type'            => 'market',
+    'side'            => 'buy',
+    'time_in_force'   => 'day',
+    'limit_price'     => '107.00',
+    'stop_price'      => '106.00',
+    'status'          => 'accepted',
+    'extended_hours'  => false,
+    'legs'            => null,
+    'trail_price'     => '1.05',
+    'trail_percent'   => null,
+];
+
+$client = new TradingClient($baseUrl, $keyId, $secretKey);
+$endpoint = new CreateOrder($orderData);
+$response = $endpoint->get();
+```
+#### Laravel Equivalent
+```php
+use Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder;
+
+$response = CreateOrder::from($orderData);
+```
+#### Order Object Convenience Method
+```php
+use Lukasyelle\AlpacaSdk\Orders\Order;
+
+$response = (new Order($orderData))->create();
+```
+
+**Response**
+
+
+```php
+Collection {#275 ▼
+  #items: array:7 [▼
+    "id": "904837e3-3b76-47ec-b432-046db621571b",
+    "client_order_id": "whatever-you-want-unique",
+    "created_at": "2021-01-05T05:48:59Z",
+    "updated_at": "2021-01-05T05:48:59Z",
+    "submitted_at": "2021-01-05T05:48:59Z",
+    "filled_at": "2021-01-05T05:48:59Z",
+    "expired_at": "2021-01-05T05:48:59Z",
+    "canceled_at": "2021-01-05T05:48:59Z",
+    "failed_at": "2021-01-05T05:48:59Z",
+    "replaced_at": "2021-01-05T05:48:59Z",
+    "replaced_by": "904837e3-3b76-47ec-b432-046db621571b",
+    "replaces": null,
+    "asset_id": "904837e3-3b76-47ec-b432-046db621571b",
+    "symbol": "AAPL",
+    "asset_class": "us_equity",
+    "qty": "15",
+    "filled_qty": "0",
+    "type": "market",
+    "side": "buy",
+    "time_in_force": "day",
+    "limit_price": "107.00",
+    "stop_price": "106.00",
+    "filled_avg_price": "106.00",
+    "status": "accepted",
+    "extended_hours": false,
+    "legs": null,
+    "trail_price": "1.05",
+    "trail_percent": null,
+    "hwm": "108.05"
+  ]
+}
