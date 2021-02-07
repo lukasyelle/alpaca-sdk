@@ -3,7 +3,6 @@
 namespace Lukasyelle\AlpacaSdk\Tests\Unit;
 
 use Lukasyelle\AlpacaSdk\Contracts\AlpacaTrading;
-use Lukasyelle\AlpacaSdk\Facades\Account\Details;
 use Lukasyelle\AlpacaSdk\Orders\GetOrder;
 use Lukasyelle\AlpacaSdk\Orders\ListOrders;
 use Lukasyelle\AlpacaSdk\Tests\BaseTestCase;
@@ -43,7 +42,7 @@ class EndpointParsingTest extends BaseTestCase
         $api->setOrderId($orderId);
 
         $api->test = 'replaced';
-        $api->endpoint = $api->endpoint . '/{test}';
+        $api->endpoint = $api->endpoint.'/{test}';
 
         $this->assertEquals('/v2/orders/asdf1234asdf/replaced', $api->getFullEndpoint());
     }
@@ -52,7 +51,7 @@ class EndpointParsingTest extends BaseTestCase
     public function itDoesntSubstituteKeysThatAreNotPropertiesOfTheRequest()
     {
         $api = new ListOrders($this->mockClient);
-        $api->endpoint = $api->endpoint . '/{noReplace}';
+        $api->endpoint = $api->endpoint.'/{noReplace}';
 
         $this->assertEquals('/v2/orders/{noReplace}', $api->getFullEndpoint());
     }

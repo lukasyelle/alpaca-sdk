@@ -85,7 +85,7 @@ abstract class BaseRequest
     public function getFullEndpoint(): string
     {
         $results = [];
-        preg_match_all('/\{(.*?)\}/', $this->endpoint,$results);
+        preg_match_all('/\{(.*?)\}/', $this->endpoint, $results);
         // preg_match_all will populate $results with a 2-d array with two keys.
         // the first key will be an array of all of the matches, the second key
         // will be an array of only the strings between '{}'.
