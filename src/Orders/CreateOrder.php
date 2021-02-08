@@ -45,7 +45,7 @@ class CreateOrder extends Trading
     public function replaceOrder(string $replaceOrderId): self
     {
         $this->method = 'PATCH';
-        $this->endpoint = $this->endpoint . '/{replaceOrderId}';
+        $this->endpoint = $this->endpoint.'/{replaceOrderId}';
         $this->replaceOrderId = $replaceOrderId;
 
         return $this;
