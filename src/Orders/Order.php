@@ -85,6 +85,28 @@ class Order
     }
 
     /**
+     * Helper method to the CreateOrder facade. Makes for a simple way to
+     * replace an order from the Order object itself.
+     *
+     * If needed, you can change the client it sends the request through, this
+     * is only used in tests at the moment.
+     *
+     * @param string      $replaceOrderId - The order id of which you want to
+     *                                    replace with the current order object.
+     * @param Alpaca|null $client
+     *
+     * @return Collection
+     */
+    public function replace(string $replaceOrderId, Alpaca $client = null): Collection
+    {
+        if ($client) {
+            return \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::setClient($client)->from($this, $replaceOrderId);
+        }
+
+        return \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::from($this, $replaceOrderId);
+    }
+
+    /**
      * Helper method to the GetOrder facade. Makes for a simple way to get an
      * order from the Order class itself with just an ID.
      *

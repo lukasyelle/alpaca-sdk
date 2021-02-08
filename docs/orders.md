@@ -171,14 +171,35 @@ use Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder;
 $response = CreateOrder::from($orderData);
 ```
 #### Order Object Convenience Method
+
+The SDK provides an Order Object that provides parameter validation as well as convenience methods to the above Facade. If you already have an Order object, these methods are a more fluent way to interact with the API. 
+
+**Note: These Helper Methods Assume You're Using A Laravel App**. They utilize Facades under the hood.
+
 ```php
 use Lukasyelle\AlpacaSdk\Orders\Order;
 
 $response = (new Order($orderData))->create();
 ```
 
-**Response**
 
+#### Replace An Order
+
+You can replace an order by providing an order ID to any of the above create order methods as a second (or third) parameter.
+
+Alternatively, you can also use the dedicated replace method on an Order object.
+
+```php 
+$replaceOrderId = 'reference-to-the-id-on-the-order-object-to-replace';
+$response = (new Order($orderData))->replace($replaceOrderId);
+```
+
+Or use the Facade as shown below:
+```php
+$response = \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::replaceOrder($replaceOrderId)->with($orderData);
+```
+
+**Response**
 
 ```php
 Collection {#275 ▼
@@ -214,3 +235,4 @@ Collection {#275 ▼
     "hwm": "108.05"
   ]
 }
+```

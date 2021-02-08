@@ -38,7 +38,7 @@ abstract class BaseRequest
     /**
      * @throws InvalidData
      */
-    protected function send(): Collection
+    public function send(): Collection
     {
         $this->validateParams('queryParams');
         $this->validateParams('bodyParams');

@@ -69,7 +69,7 @@ class CreateOrderTest extends BaseTestCase
         $api = new CreateOrder($this->mockClient, $this->orderData);
 
         $this->assertIsObject($api->order, 'Order object was not created');
-        $this->assertStringContainsString(Order::class, get_class($api->order));
+        $this->assertInstanceOf(Order::class, $api->order);
         $this->assertSameSize($this->orderData, $api->order->toArray());
     }
 
@@ -275,5 +275,40 @@ class CreateOrderTest extends BaseTestCase
 
         $this->assertInstanceOf(Collection::class, $order);
         $this->assertSameSize($this->expectedResult(), $order->toArray());
+    }
+
+    /** @test */
+    public function itCanReplaceOrders()
+    {
+        $replaceOrderId = 'test-123';
+        $api = new CreateOrder($this->mockClient, $this->orderData, $replaceOrderId);
+
+        $this->assertSame($replaceOrderId, $api->replaceOrderId);
+        $this->assertSame('PATCH', $api->method);
+        $this->assertSame("/v2/orders/$replaceOrderId", $api->getFullEndpoint());
+        $this->assertInstanceOf(Order::class, $api->order);
+    }
+
+    /** @test */
+    public function itCanReplaceOrdersThroughFacade()
+    {
+        $replaceOrderId = 'test-123';
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('setClient')->once()->andReturnSelf();
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('replaceOrder')->once()->andReturnSelf();
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('with')->once()->andReturn($this->expectedResult());
+
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::setClient($this->mockClient)->replaceOrder($replaceOrderId)->with($this->orderData);
+    }
+
+    /** @test */
+    public function itCanReplaceOrdersThroughOrderClassAlias()
+    {
+        $replaceOrderId = 'test-123';
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('setClient')->once()->andReturnSelf();
+        \Lukasyelle\AlpacaSdk\Facades\Orders\CreateOrder::shouldReceive('from')->once()->andReturn($this->expectedResult());
+
+        $orderToCreate = new Order($this->orderData);
+
+        $orderToCreate->replace($replaceOrderId, $this->mockClient);
     }
 }
